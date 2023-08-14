@@ -1,8 +1,18 @@
 class ProductsController < ApplicationController
 
     def index
-        products = Product.all
-        render json: products,except: ['created_at','updated_at'], status: :ok
+        products = Product.all.includes(:supplier)
+        response = products.map do |product|
+            {
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              category: product.category,
+              current_qty: product.current_qty,
+              supplier: product.supplier.name
+            }
+          end
+        render json: response, status: :ok
     end
 
     def show
@@ -41,6 +51,23 @@ class ProductsController < ApplicationController
         else
             render json: {error: 'Product not found.'}
         end
+    end
+
+    def less_products
+        low_quantity_products = Product.where('current_qty < ?', 10).order(current_qty: :desc)
+
+        response = low_quantity_products.map do |product|
+        {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            category: product.category,
+            current_qty: product.current_qty,
+            supplier: product.supplier.name
+        }
+        end
+
+        render json: response, status: :ok
     end
 
 
