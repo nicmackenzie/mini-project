@@ -1,0 +1,14 @@
+ - CREATE - ROUTE -> POST /products - will require name,price,current_qty,category,supplier_id
+ - READ - ROUTE ->  GET /products - will list all products created in our database
+ - UPDATE - ROUTE -> PATCH /products/:id - will require either name,price,current_qty,category,supplier_id and a product id
+ - DELETE - route -> DELETE /products/:id - will require the product id
+
+
+ - Its a mini inventory management application that keeps track of products, their supplier and current qty.
+ 
+ FEATURES
+  - Product creation - 
+  - Get a list of all products in the database
+  - Get the expensive product in store  --- not implemented
+  - Update product details eg price - 
+  - Delete a product
